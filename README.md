@@ -77,13 +77,12 @@ flowchart LR
     MEGNet --> M3GNet --> CHGNet
 
     SCN --> Equiformer
-    Equiformer --> eqV2
 
     G-CNNs["G-CNNs<br/>Equivariance"] --> TFN
     DeepMD --> DPA1
     Attention --> DPA1 --> DPA3
     Attention --> ESCalP
-    Attention --> eqV2
+    Attention --> Equiformer --> eqV2
     GNS --> ORBs
 
     %% Styling
