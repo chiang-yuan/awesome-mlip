@@ -15,81 +15,107 @@ flowchart TB
         BP["Behler-Parrinello<br/>Atomized Energy"]
     end
 
-    subgraph "2010-2019"
-        TFN["TFN<br/>Equivariance"]
+    subgraph "2010 - 2019"
         SOAP[SOAP]
+        SchNet["SchNet<br/>Filter, RBF"]
+        TFN["TFN<br/>Equivariance"]
         ACE["ACE<br/>Many-body Expansion"]
+        GDML[GDML]
+        DeepMD[DeepMD]
+
         GAP[GAP]
         SNAP[SNAP]
         MTP[MTP]
-        SchNet["SchNet<br/>Filter, RBF"]
         HDNNP[HDNNP]
+        ANI[ANI]
     end
 
-    subgraph "2020-2023"
-        NequIP[NequIP]
+    subgraph "2020 - 2023"
+        SCN[SCN]
+        eSCN[eSCN]
+        Equiformer[Equiformer]
         MACE[MACE]
         MACE_MP["MACE-MP"]
         MACE_OFF["MACE-OFF"]
+        NequIP[NequIP]
+        
+        ANI2x[ANI2x]
+        AIMNet2[AIMNet2]
+        GNoME[GNoME]
+        DPA1["DPA-1"]
         M3GNet[M3GNet]
         CHGNet[CHGNet]
-        eSCN[eSCN]
-        ORBs[ORBs]
-        DPA1["DPA-1"]
-        Equiformer[Equiformer]
-        GNS[GNS]
-        GNoME[GNoME]
+        
     end
 
-    subgraph "2024"
+    subgraph "2024 - "
         GRACE[GRACE]
-        eSEN[eSEN]
-        DPA3["DPA-3"]
-        ESCalP[ESCalP]
+        eSEN["eSEN<br/>(OMat, OMol)"]
+        eqV2["eqV2<br/>(OMat)"]
         MatterSim[MatterSim]
         SevenNet[SevenNet]
-        eqV2["eqV2<br/>(OMat)"]
+        ESCalP[ESCalP]
+        ORBs[ORBs]
+        DPA3["DPA-3"]
+        
     end
 
     %% === Edges (ordered genealogy) ===
     BP --> ANI --> ANI2x --> AIMNet2
     BP --> HDNNP
     BP --> GAP --> SNAP
-    BP --> SchNet --> TFN 
+    BP --> SchNet --> TFN
+    BP --> GDML
+    BP --> DeepMD
+
     GAP --> MTP
     GAP --> SOAP --> ACE --> MACE 
+    M3GNet --> MatterSim
+    TFN --> SCN --> eSCN
+    TFN --> e3nn --> NequIP --> MACE
     MACE --> MACE_MP --> GRACE
     MACE --> MACE_OFF
-    TFN --> e3nn --> NequIP --> MACE
     NequIP --> GNoME
     NequIP --> SevenNet
     NequIP --> eSEN
-    M3GNet --> CHGNet
-    M3GNet --> MatterSim
+
+    BP --> M3GNet
+    MEGNet --> M3GNet --> CHGNet
+
+
+     
+    SCN --> Equiformer
     Equiformer --> eqV2
-    Attention --> eqV2
-    GNS --> ORBs
+
+
+    
+    
+    
+    
+    
+    
+    %% ACE --> GRACE
+    %% TFN --> eSCN
+    
+    G-CNNs --> TFN
+    DeepMD --> DPA1
     Attention --> DPA1 --> DPA3
     Attention --> ESCalP
+    Attention --> eqV2
+    GNS --> ORBs
+
 
 
     %% === Styling ===
-    classDef foundation fill:#1e3a8a,stroke:#1e40af,stroke-width:3px,color:#fff,font-weight:bold
-    classDef groupTheory fill:#0f766e,stroke:#0d9488,stroke-width:2px,color:#fff,font-weight:bold
+    classDef architecture fill:#1e3a8a,stroke:#1e40af,stroke-width:3px,color:#fff,font-weight:bold
     classDef organic fill:#059669,stroke:#10b981,stroke-width:2px,color:#fff,font-weight:bold
-    classDef universal fill:#dc2626,stroke:#ef4444,stroke-width:3px,color:#fff,font-weight:bold
     classDef attention fill:#7c3aed,stroke:#8b5cf6,stroke-width:2px,color:#fff,font-weight:bold
-    classDef advanced fill:#ea580c,stroke:#f97316,stroke-width:2px,color:#fff,font-weight:bold
-    classDef symmetry fill:#be185d,stroke:#ec4899,stroke-width:2px,color:#fff,font-weight:bold
+    classDef equivariance fill:#ea580c,stroke:#f97316,stroke-width:2px,color:#fff,font-weight:bold
+    classDef universal fill:#be185d,stroke:#ec4899,stroke-width:2px,color:#fff,font-weight:bold
 
-    class BP foundation
-    class ANI,HDNNP,GAP,SNAP,MTP,SOAP,SchNet,TFN groupTheory
-    class ANI2x,MACE_OFF organic
-    class AIMNet2,MACE_MP,CHGNet,M3GNet,MatterSim,GRACE,SevenNet universal
-    class GNS,DPA1,DPA3,ESCalP attention
-    class ACE,MACE,NequIP,Equiformer advanced
-    class GNoME,eqV2,eSCN,eSEN,ORBs symmetry
-
-
-
-```
+    %% === Class assignments ===
+    class BP,ANI,HDNNP,GAP,SNAP,MTP,SchNet,DeepMD,GDML architecture
+    class SOAP,TFN,ACE,MACE,NequIP,Equiformer,eqV2,eSCN,eSEN,ORBs,SCN equivariance
+    class ANI2x,AIMNet2,MACE_OFF organic
+    class GNoME,MACE_MP,CHGNet,M3GNet,MatterSim,GRACE,SevenNet,eqV2,eSEN,ORBs universal
+    class DPA1,DPA3,ESCalP attention
