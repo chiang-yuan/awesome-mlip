@@ -5,7 +5,7 @@
 %% Mermaid v10+ optimized vertical timeline
 %% Enable in compatible Mermaid live editors: https://mermaid-js.github.io/mermaid-live-editor
 
-flowchart TB
+flowchart LR
 
     subgraph "2007"
         BP["Behler-Parrinello<br/>Atomized Energy"]
