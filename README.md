@@ -8,13 +8,13 @@
 flowchart LR
 
     subgraph "2007"
-        BP["Behler-Parrinello<br/>Atomized Energy"]
+        BP["Behler-Parrinello NN<br/>(Atomized Energy)"]
     end
 
     subgraph "2010 - 2019"
         SOAP[SOAP]
         SchNet["SchNet<br/>(Filter, RBF)"]
-        TFN["TFN"]
+        TFN["TFN<br/>(e3nn)"]
         ACE["ACE<br/>(Many-body Expansion)"]
         GDML[GDML]
         DeepMD[DeepMD]
@@ -26,6 +26,9 @@ flowchart LR
     end
 
     subgraph "2020 - 2023"
+        So3krates
+        M3GNet[M3GNet]
+        CHGNet[CHGNet]
         SCN[SCN]
         eSCN[eSCN]
         Equiformer[Equiformer]
@@ -37,20 +40,19 @@ flowchart LR
         AIMNet2[AIMNet2]
         GNoME[GNoME]
         DPA1["DPA-1"]
-        M3GNet[M3GNet]
-        CHGNet[CHGNet]
     end
 
     subgraph "2024 - "
         GRACE[GRACE]
-        eSEN["eSEN<br/>(OMat, OMol)"]
         eqV2["eqV2<br/>(OMat)"]
         MatterSim[MatterSim]
         SevenNet[SevenNet]
-        ESCalP[ESCalP]
         ORBs[ORBs]
         DPA3["DPA-3"]
         CACE
+        eSEN["eSEN<br/>(OMat, OMol)"]
+        ESCalP[ESCalP]
+        EFA
     end
 
     %% Edges
@@ -60,29 +62,32 @@ flowchart LR
     BP --> SchNet --> TFN
     BP --> GDML
     BP --> DeepMD
+    BP --> M3GNet
+    Kernel --> GDML --> So3krates
 
     GAP --> MTP
     GAP --> SOAP --> ACE --> MACE 
     M3GNet --> MatterSim
     TFN --> SCN --> eSCN
-    TFN --> e3nn --> NequIP --> MACE
+    TFN --> NequIP 
+    TFN --> MACE
+    TFN --> So3krates
     MACE --> MACE-MP --> GRACE
     MACE --> MACE-OFF
     MACE --> CACE
     NequIP --> GNoME
     NequIP --> SevenNet
     NequIP --> eSEN
-
-    BP --> M3GNet
-    MEGNet --> M3GNet --> CHGNet
-
-    SCN --> Equiformer
+    MEGNet --> M3GNet --> CHGNet 
 
     G-CNNs["G-CNNs<br/>Equivariance"] --> TFN
     DeepMD --> DPA1
     Attention --> DPA1 --> DPA3
     Attention --> ESCalP
     Attention --> Equiformer --> eqV2
+    Attention --> EFA
+    SchNet --> EFA
+    SCN --> Equiformer
     GNS --> ORBs
 
     %% Styling
@@ -96,7 +101,7 @@ flowchart LR
     class SOAP,TFN,ACE,MACE,NequIP,Equiformer,eqV2,eSCN,eSEN,SCN,CACE,Equivariant equivariance
     class ANI2x,AIMNet2,MACE-OFF organic
     class GNoME,MACE-MP,CHGNet,M3GNet,MatterSim,GRACE,SevenNet,eqV2,eSEN,ORBs universal
-    class DPA1,DPA3,ESCalP attention
+    class DPA1,DPA3,ESCalP,EFA attention
 
     %% Click links
     click BP "https://doi.org/10.1103/PhysRevLett.98.146401"
@@ -109,4 +114,6 @@ flowchart LR
     click DeepMD "https://doi.org/10.1103/PhysRevLett.120.143001"
     click GAP "https://doi.org/10.1103/PhysRevLett.104.136403"
     click ANI "https://doi.org/10.1039/C6SC05720A"
+    click NEP89 "https://arxiv.org/abs/2504.21286"
+    click EFA "https://arxiv.org/abs/2412.08541"
 ```
